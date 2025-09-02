@@ -107,6 +107,11 @@ if [[ -d "/snap/bin" ]]; then
     export PATH="/snap/bin:$PATH"
 fi
 
+if [[ -d "/home/linuxbrew/.linuxbrew/bin" ]]; then
+    export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
 export PATH="$HOME/.local/bin:$PATH"
 export HOMEBREW_NO_AUTO_UPDATE=true
 export EDITOR="hx"

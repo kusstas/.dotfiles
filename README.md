@@ -5,6 +5,7 @@ Configurations repo for `zsh`, `tmux`, `zellij`, `helix`, `bat`, `yazi` and etc.
 ### Requirements
 
 - [git](https://git-scm.com)
+- [brew](https://brew.sh/)
 - [stow](https://www.gnu.org/software/stow/)
 - [zsh](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH)
 - [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh)
