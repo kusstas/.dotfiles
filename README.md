@@ -29,4 +29,5 @@ stow -v .
 
 ### Appearance
 
-- [iterm2](./.themes/catppuccin-macchiato.itermcolors)
+- [iterm2](./.themes/iterm2.json)
+- [iterm2-colors](./.themes/catppuccin-macchiato.itermcolors)
