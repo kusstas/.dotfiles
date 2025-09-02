@@ -1,0 +1,26 @@
+[language-server.rust-analyzer.config.check]
+command = "clippy"
+
+[language-server.taplo]
+config = {}
+
+[[language]]
+name = "yaml"
+file-types = ["yaml", "yml"]
+language-servers = ["yaml-language-server"]
+
+[[language]]
+name = "toml"
+file-types = ["toml"]
+language-servers = ["taplo"]
+formatter = { command = "taplo", args = ["fmt", "-"] }
+
+[[language]]
+name = "lua"
+file-types = ["lua"]
+language-servers = ["lua-language-server"]
+
+[[language]]
+name = "bash"
+language-servers = ["bash-language-server"]
+formatter = { command = "shfmt", args = ["-i=4", "-"] }

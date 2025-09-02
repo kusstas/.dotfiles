@@ -1,0 +1,12 @@
+[[plugin.deps]]
+use = "luccahuguet/auto-layout"
+rev = "e24bee9"
+hash = "2e744ac2938468fd4244beca1e022c4f"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:git"
+rev = "d7588f6"
+hash = "63b6c222bf2103b3023389dde5e2ecfe"
+
+[flavor]
+deps = []
