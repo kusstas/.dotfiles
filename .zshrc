@@ -101,21 +101,26 @@ function y() {
     rm -f -- "$tmp"
 }
 
-. "$HOME/.cargo/env"
+if [[ -d "$HOME/.cargo" ]]; then
+    . "$HOME/.cargo/env"
+fi
 
 if [[ -d "/snap/bin" ]]; then
-    export PATH="/snap/bin:$PATH"
+    export PATH="$PATH:/snap/bin"
 fi
 
 if [[ -d "/home/linuxbrew/.linuxbrew/bin" ]]; then
-    export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+    l_path="$PATH:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin"
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    export PATH="$l_path"
 fi
 
 export PATH="$HOME/.local/bin:$PATH"
 export HOMEBREW_NO_AUTO_UPDATE=true
+export HOMEBREW_NO_ENV_HINTS=1
 export EDITOR="hx"
 export NVM_DIR="$HOME/.nvm"
+export CARGO_NET_GIT_FETCH_WITH_CLI=true
 
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion

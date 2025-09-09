@@ -1,8 +1,17 @@
 [language-server.rust-analyzer.config.check]
 command = "clippy"
 
+[language-server.pylsp.config.pylsp]
+plugins.ruff.enabled = true
+plugins.black.enabled = true
+
 [language-server.taplo]
 config = {}
+
+[[language]]
+name = "json"
+file-types = ["json"]
+language-servers = ["vscode-json-language-server"]
 
 [[language]]
 name = "yaml"
