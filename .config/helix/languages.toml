@@ -17,6 +17,7 @@ language-servers = ["vscode-json-language-server"]
 name = "yaml"
 file-types = ["yaml", "yml"]
 language-servers = ["yaml-language-server"]
+formatter = { command = "yamlfmt", args = ["-formatter", "indentless_arrays=true,retain_line_breaks=true", "-"] }
 
 [[language]]
 name = "toml"
