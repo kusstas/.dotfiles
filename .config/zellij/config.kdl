@@ -7,7 +7,7 @@ keybinds clear-defaults=true {
     unbind "Ctrl s"
 
     normal {
-        bind "Ctrl q" { SwitchToMode "session"; }
+        bind "Ctrl u" { SwitchToMode "session"; }
         bind "Ctrl f" { SwitchToMode "scroll"; }
     }
     locked {
@@ -121,7 +121,7 @@ keybinds clear-defaults=true {
             }
             SwitchToMode "normal"
         }
-        bind "Ctrl q" { SwitchToMode "normal"; }
+        bind "Ctrl u" { SwitchToMode "normal"; }
         bind "p" {
             LaunchOrFocusPlugin "plugin-manager" {
                 floating true
@@ -168,7 +168,7 @@ keybinds clear-defaults=true {
         bind "Ctrl h" { SwitchToMode "move"; }
     }
     shared_except "locked" "session" {
-        bind "Ctrl q" { SwitchToMode "session"; }
+        bind "Ctrl u" { SwitchToMode "session"; }
     }
     shared_except "locked" "scroll" "search" "tmux" {
         bind "Ctrl b" { SwitchToMode "tmux"; }
