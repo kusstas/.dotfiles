@@ -85,6 +85,8 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+alias zjw='zellij --layout workspace'
+
 JOVIAL_SYMBOL[corner.top]=''
 JOVIAL_SYMBOL[corner.bottom]=''
 JOVIAL_SYMBOL[arrow]=' ~'
