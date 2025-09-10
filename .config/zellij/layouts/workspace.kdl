@@ -1,9 +1,23 @@
 layout {
-    pane {
-        pane command="hx" args="." close_on_exit=true
-        pane split_direction="vertical" size="30%"
+    tab name="main" {
+        pane {
+            pane command="hx" args="." close_on_exit=true
+            pane split_direction="vertical" size="30%"
+        }
+        pane size=1 borderless=true {
+            plugin location="compact-bar"
+        }
     }
-    pane size=1 borderless=true {
-        plugin location="compact-bar"
+    tab name="git" {
+        pane command="lazygit"
+        pane size=1 borderless=true {
+            plugin location="compact-bar"
+        }
+    }
+    tab name="run" {
+        pane
+        pane size=1 borderless=true {
+            plugin location="compact-bar"
+        }
     }
 }

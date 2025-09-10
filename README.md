@@ -1,6 +1,6 @@
 # 🏡 .dotfiles
 
-Configurations repo for `zsh`, `tmux`, `zellij`, `helix`, `bat`, `yazi` and etc.
+Configurations repo for `zsh`, `tmux`, `zellij`, `helix`, `bat`, `yazi`, `lazygit` and etc.
 
 ### Requirements
 
@@ -18,6 +18,7 @@ Configurations repo for `zsh`, `tmux`, `zellij`, `helix`, `bat`, `yazi` and etc.
 - [yazi](https://yazi-rs.github.io)
 - [bat](https://github.com/sharkdp/bat)
 - [helix](https://helix-editor.com)
+- [lazygit](https://github.com/jesseduffield/lazygit)
 
 ### Install
 
