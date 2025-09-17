@@ -170,9 +170,6 @@ keybinds clear-defaults=true {
     shared_except "locked" "session" {
         bind "Ctrl u" { SwitchToMode "session"; }
     }
-    shared_except "locked" "scroll" "search" "tmux" {
-        bind "Ctrl b" { SwitchToMode "tmux"; }
-    }
     shared_except "locked" "scroll" "search" {
         bind "Ctrl f" { SwitchToMode "scroll"; }
     }
