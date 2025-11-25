@@ -1,0 +1,11 @@
+services:
+  kusov-ws:
+    image: kusov-ws:latest
+    container_name: kusov-ws
+    hostname: kusov-ws
+    stdin_open: true
+    tty: true
+    build:
+      context: .
+      ssh:
+        - default
