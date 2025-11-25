@@ -1,25 +1,24 @@
 FROM ubuntu:24.04 AS runner
 
-RUN apt-get update && apt-get install -y sudo
+RUN apt-get update && apt-get install -y sudo zsh
 
 ARG USER_NAME=kusov
 ARG USER_UID=1001
 ARG USER_GID=1001
 
 RUN groupadd -g ${USER_GID} ${USER_NAME}
-RUN useradd -m -s /bin/bash -u ${USER_UID} -g ${USER_GID} ${USER_NAME}
+RUN useradd -m -s /bin/zsh -u ${USER_UID} -g ${USER_GID} ${USER_NAME}
 RUN usermod -aG sudo ${USER_NAME}
 RUN echo "${USER_NAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 ENV HOME /home/${USER_NAME}
 RUN chown -R ${USER_NAME}:${USER_NAME} /home/${USER_NAME}
 
-USER kusov
+USER ${USER_NAME}
 WORKDIR /home/${USER_NAME}
 
-RUN sudo apt install -y zsh build-essential curl git stow cmake
+RUN sudo apt install -y build-essential curl git stow cmake
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 RUN curl -sSL https://github.com/zthxxx/jovial/raw/master/installer.sh | sudo -E bash -s ${USER:=`whoami`}
-
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 RUN .cargo/bin/cargo install cargo-upgrades
 RUN .cargo/bin/cargo install cargo-expand
@@ -41,10 +40,14 @@ RUN brew install taplo
 RUN pip3 install bitbake-language-server --break-system-packages
 
 RUN brew cleanup --prune all
+RUN hx -g fetch && hx -g build
 
-COPY .. .dotfiles
+COPY --chown=${USER_NAME}:${USER_NAME} .. .dotfiles
 RUN rm -rf .tmux.conf .zshrc
 RUN cd .dotfiles && stow -v .
-SHELL [ "/bin/zsh", "-c" ]
 
+SHELL [ "/bin/zsh", "-c" ]
+ENV SHELL /bin/zsh
+
+WORKDIR /home/${USER_NAME}/workdir
 ENTRYPOINT [ "/bin/zsh" ]

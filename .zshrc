@@ -103,6 +103,21 @@ function y() {
     rm -f -- "$tmp"
 }
 
+function dw() {
+    export WORKDIR_VOLUME=$(pwd)
+
+    (
+        cd ~/.dotfiles
+        docker compose up -d
+        docker compose attach kusov-ws
+    )
+}
+
+function dw-build() (
+    cd ~/.dotfiles
+    docker compose build
+)
+
 if [[ -d "$HOME/.cargo" ]]; then
     . "$HOME/.cargo/env"
 fi

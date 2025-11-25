@@ -5,6 +5,8 @@ services:
     hostname: kusov-ws
     stdin_open: true
     tty: true
+    volumes:
+      - ${WORKDIR_VOLUME}:/home/kusov/workdir
     build:
       context: .
       ssh:
