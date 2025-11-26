@@ -7,6 +7,8 @@ services:
     tty: true
     volumes:
       - ${WORKDIR_VOLUME}:/home/kusov/workdir
+      - ${HOME}/.ssh:/home/kusov/.ssh
+      - ${HOME}/.gitconfig:/home/kusov/.gitconfig
     build:
       context: .
       ssh:

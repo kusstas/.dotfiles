@@ -1,53 +1,74 @@
+# === Base image ===
 FROM ubuntu:24.04 AS runner
 
-RUN apt-get update && apt-get install -y sudo zsh
+# === System packages installation ===
+RUN apt-get update && \
+  apt-get install -y sudo zsh build-essential curl git stow cmake file && \
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/*
 
+# === User configuration arguments ===
 ARG USER_NAME=kusov
 ARG USER_UID=1001
 ARG USER_GID=1001
 
-RUN groupadd -g ${USER_GID} ${USER_NAME}
-RUN useradd -m -s /bin/zsh -u ${USER_UID} -g ${USER_GID} ${USER_NAME}
-RUN usermod -aG sudo ${USER_NAME}
-RUN echo "${USER_NAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-ENV HOME /home/${USER_NAME}
-RUN chown -R ${USER_NAME}:${USER_NAME} /home/${USER_NAME}
+# === Create user and grant passwordless sudo ===
+RUN groupadd -g ${USER_GID} ${USER_NAME} && \
+  useradd -m -s /bin/zsh -u ${USER_UID} -g ${USER_GID} ${USER_NAME} && \
+  usermod -aG sudo ${USER_NAME} && \
+  echo "${USER_NAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
+# === Switch to non-root user and set environment ===
 USER ${USER_NAME}
-WORKDIR /home/${USER_NAME}
+ENV HOME /home/${USER_NAME}
+WORKDIR ${HOME}
 
-RUN sudo apt install -y build-essential curl git stow cmake
+# === Install Oh My Zsh ===
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-RUN curl -sSL https://github.com/zthxxx/jovial/raw/master/installer.sh | sudo -E bash -s ${USER:=`whoami`}
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-RUN .cargo/bin/cargo install cargo-upgrades
-RUN .cargo/bin/cargo install cargo-expand
-RUN .cargo/bin/cargo install cargo-cache
-RUN .cargo/bin/rustup component add rust-analyzer
 
+# === Install Jovial zsh theme/config ===
+RUN curl -sSL https://github.com/zthxxx/jovial/raw/master/installer.sh | sudo -E bash -s ${USER:=`whoami`}
+
+# === Install Rust toolchain and useful cargo utilities ===
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
+  .cargo/bin/rustup component add rust-analyzer && \
+  .cargo/bin/cargo install cargo-upgrades && \
+  .cargo/bin/cargo install cargo-expand && \
+  .cargo/bin/cargo install cargo-cache && \
+  rm -rf .cargo/registry
+
+# === Install Homebrew (Linuxbrew) ===
 RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ENV PATH "$PATH:/home/linuxbrew/.linuxbrew/bin/"
-RUN brew install helix yazi zellij lazygit bat
-RUN brew install neocmakelsp
-RUN brew install bash-language-server
-RUN brew install lua-language-server
-RUN brew install yaml-language-server yamlfmt
-RUN brew install vscode-langservers-extracted
-RUN brew install llvm
-RUN brew install ruff pylsp
-RUN brew install taplo
 
-RUN pip3 install bitbake-language-server --break-system-packages
+# === Install Homebrew packages and language servers ===
+RUN brew install autojump helix yazi zellij lazygit bat \
+  neocmakelsp \
+  bash-language-server \
+  lua-language-server \
+  yaml-language-server yamlfmt \
+  vscode-langservers-extracted \
+  llvm \
+  ruff pylsp \
+  taplo && \
+  brew cleanup --prune all && \
+  rm -rf .cache/Homebrew
 
-RUN brew cleanup --prune all
+# === Python tools installed via pip ===
+RUN pip3 install bitbake-language-server --break-system-packages && \
+  pip3 cache purge && \
+  rm -rf .cache/pip
+
+# === Fetch and build Helix editor assets ===
 RUN hx -g fetch && hx -g build
 
+# === Copy dotfiles into image and apply them with GNU Stow ===
 COPY --chown=${USER_NAME}:${USER_NAME} .. .dotfiles
 RUN rm -rf .tmux.conf .zshrc
 RUN cd .dotfiles && stow -v .
 
-SHELL [ "/bin/zsh", "-c" ]
+# === Runtime environment and entrypoint ===
 ENV SHELL /bin/zsh
 
-WORKDIR /home/${USER_NAME}/workdir
+WORKDIR ${HOME}/workdir
 ENTRYPOINT [ "/bin/zsh" ]
