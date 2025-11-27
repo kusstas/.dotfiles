@@ -1,5 +1,5 @@
 services:
-  kusov-ws:
+  ide:
     image: ide:latest
     container_name: ide
     hostname: ide
@@ -13,5 +13,5 @@ services:
       context: .
       args:
         USER_NAME: ${USER_NAME:-me}
-        USER_UID: ${USER_UID:-9001}
-        USER_GID: ${USER_GID:-9001}
+        USER_UID: ${USER_UID:-1000}
+        USER_GID: ${USER_GID:-1000}

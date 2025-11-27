@@ -103,14 +103,26 @@ function y() {
     rm -f -- "$tmp"
 }
 
-function ide() {
-    docker-compose -f ~/.dotfiles/docker-compose.yml up -d
-    docker attach ide
+function ide-env() {
+    os=$(uname -s)
+
+    export USER_NAME=$(whoami)
+
+    if [[ "$os" == "Linux" ]]; then
+        export USER_UID=$(id -u)
+        export USER_GID=$(id -g)
+    fi
 }
 
-function ide-build() {
-    docker-compose -f ~/.dotfiles/docker-compose.yml build
-}
+function ide() (
+    ide-env
+    docker compose -f ~/.dotfiles/docker-compose.yml run --rm ide
+)
+
+function ide-build() (
+    ide-env
+    docker compose -f ~/.dotfiles/docker-compose.yml build
+)
 
 if [[ -d "$HOME/.cargo" ]]; then
     . "$HOME/.cargo/env"

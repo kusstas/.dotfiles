@@ -1,5 +1,5 @@
 # === Base image ===
-FROM ubuntu:24.04 AS runner
+FROM ubuntu:24.04
 
 # === System packages installation ===
 RUN apt-get update && \
@@ -9,11 +9,12 @@ RUN apt-get update && \
 
 # === User configuration arguments ===
 ARG USER_NAME=me
-ARG USER_UID=9001
-ARG USER_GID=9001
+ARG USER_UID=1000
+ARG USER_GID=1000
 
 # === Create user and grant passwordless sudo ===
-RUN groupadd -g ${USER_GID} ${USER_NAME} && \
+RUN userdel -r ubuntu && \
+  groupadd -g ${USER_GID} ${USER_NAME} && \
   useradd -m -s /bin/zsh -u ${USER_UID} -g ${USER_GID} ${USER_NAME} && \
   usermod -aG sudo ${USER_NAME} && \
   echo "${USER_NAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
