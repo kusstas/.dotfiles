@@ -1,15 +1,19 @@
 services:
   kusov-ws:
-    image: kusov-ws:latest
-    container_name: kusov-ws
-    hostname: kusov-ws
+    image: ide:latest
+    container_name: ide
+    hostname: ide
     stdin_open: true
     tty: true
     volumes:
-      - ${WORKDIR_VOLUME}:/home/kusov/workdir
-      - ${HOME}/.ssh:/home/kusov/.ssh
-      - ${HOME}/.gitconfig:/home/kusov/.gitconfig
+      - ${PWD}:/home/${USER_NAME:-me}/workdir
+      - ${HOME}/.ssh:/home/${USER_NAME:-me}/.ssh
+      - ${HOME}/.gitconfig:/home/${USER_NAME:-me}/.gitconfig
     build:
       context: .
+      args:
+        USER_NAME: ${USER_NAME:-me}
+        USER_UID: ${USER_UID:-9001}
+        USER_GID: ${USER_GID:-9001}
       ssh:
         - default

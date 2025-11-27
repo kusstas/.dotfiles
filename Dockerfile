@@ -8,9 +8,9 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
 
 # === User configuration arguments ===
-ARG USER_NAME=kusov
-ARG USER_UID=1001
-ARG USER_GID=1001
+ARG USER_NAME=me
+ARG USER_UID=9001
+ARG USER_GID=9001
 
 # === Create user and grant passwordless sudo ===
 RUN groupadd -g ${USER_GID} ${USER_NAME} && \
