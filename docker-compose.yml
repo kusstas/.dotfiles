@@ -15,5 +15,3 @@ services:
         USER_NAME: ${USER_NAME:-me}
         USER_UID: ${USER_UID:-9001}
         USER_GID: ${USER_GID:-9001}
-      ssh:
-        - default
