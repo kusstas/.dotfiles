@@ -21,7 +21,7 @@ RUN userdel -r ubuntu && \
 
 # === Switch to non-root user and set environment ===
 USER ${USER_NAME}
-ENV HOME /home/${USER_NAME}
+ENV HOME=/home/${USER_NAME}
 WORKDIR ${HOME}
 
 # === Install Oh My Zsh ===
@@ -40,7 +40,7 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
 
 # === Install Homebrew (Linuxbrew) ===
 RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-ENV PATH "$PATH:/home/linuxbrew/.linuxbrew/bin/"
+ENV PATH="$PATH:/home/linuxbrew/.linuxbrew/bin/"
 
 # === Install Homebrew packages and language servers ===
 RUN brew install autojump helix yazi zellij lazygit bat \
@@ -69,7 +69,7 @@ RUN rm -rf .tmux.conf .zshrc
 RUN cd .dotfiles && stow -v .
 
 # === Runtime environment and entrypoint ===
-ENV SHELL /bin/zsh
+ENV SHELL=/bin/zsh
 
 WORKDIR ${HOME}/workdir
 ENTRYPOINT [ "/bin/zsh" ]
