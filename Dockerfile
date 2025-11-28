@@ -3,7 +3,7 @@ FROM ubuntu:24.04
 
 # === System packages installation ===
 RUN apt-get update && \
-  apt-get install -y sudo zsh build-essential curl git stow cmake file && \
+  apt-get install -y sudo zsh build-essential curl git stow cmake file pkg-config && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
