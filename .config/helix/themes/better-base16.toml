@@ -1,0 +1,12 @@
+inherits = 'base16_default_dark'
+
+"variable" = "base06"
+"variable.builtin" = "base08"
+"variable.parameter" = "base0F"
+"variable.other.member" = "base08"
+
+"ui.linenr" = { fg = "base03", bg = "base00" }
+"ui.gutter" = { bg = "base00" }
+"ui.gutter.selected" = { bg = "base01" }
+"ui.cursor.primary.insert" = { fg = "base0A", modifiers = ["reversed"] }
+"ui.cursor.primary.select" = { fg = "base0E", modifiers = ["reversed"] }

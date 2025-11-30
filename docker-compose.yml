@@ -9,6 +9,7 @@ services:
       - ${PWD}:/home/${USER_NAME:-me}/workdir
       - ${HOME}/.ssh:/home/${USER_NAME:-me}/.ssh
       - ${HOME}/.gitconfig:/home/${USER_NAME:-me}/.gitconfig
+      - ${HOME}/.env:/home/${USER_NAME:-me}/.env
     build:
       context: .
       args:

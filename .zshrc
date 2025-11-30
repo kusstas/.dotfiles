@@ -8,7 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="jovial"
+ZSH_THEME="norm"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -72,28 +72,22 @@ ZSH_THEME="jovial"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     git
-    autojump
-    urltools
-    bgnotify
     zsh-autosuggestions
     zsh-syntax-highlighting
-    zsh-history-enquirer
-    jovial
 )
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-alias zjw='zellij --layout workspace'
+PROMPT='%{$fg[yellow]%}$ %m %{$fg[green]%}%c %{$fg[yellow]%}-> $(git_prompt_info)$(hg_prompt_info)%{$reset_color%}'
 
-JOVIAL_SYMBOL[corner.top]=''
-JOVIAL_SYMBOL[corner.bottom]=''
-JOVIAL_SYMBOL[arrow]=' ~'
-JOVIAL_SYMBOL[arrow.git-clean]=' ~'
-JOVIAL_SYMBOL[arrow.git-dirty]=' ~'
-JOVIAL_SYMBOL[git.clean]=' (V)'
-JOVIAL_SYMBOL[git.dirty]=' (X)'
+ZSH_THEME_GIT_PROMPT_PREFIX="@ %{$fg[blue]%}git %{$fg[red]%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[yellow]%} -> %{$reset_color%}"
+ZSH_THEME_HG_PROMPT_PREFIX="@ %{$fg[blue]%}hg %{$fg[red]%}"
+ZSH_THEME_HG_PROMPT_SUFFIX="%{$fg[yellow]%} -> %{$reset_color%}"
+
+alias zjw='zellij --layout workspace'
 
 function y() {
     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
@@ -126,6 +120,10 @@ function ide-build() (
 
 if [[ -d "$HOME/.cargo" ]]; then
     . "$HOME/.cargo/env"
+fi
+
+if [[ -f "$HOME/.env" ]]; then
+    export $(grep -v ^# "$HOME/.env" | xargs)
 fi
 
 if [[ -d "/snap/bin" ]]; then

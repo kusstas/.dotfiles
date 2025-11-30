@@ -26,9 +26,8 @@ WORKDIR ${HOME}
 
 # === Install Oh My Zsh ===
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-# === Install Jovial zsh theme/config ===
-RUN curl -sSL https://github.com/zthxxx/jovial/raw/master/installer.sh | sudo -E bash -s ${USER:=`whoami`}
+RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 # === Install Rust toolchain and useful cargo utilities ===
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
@@ -43,7 +42,7 @@ RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/instal
 ENV PATH="$PATH:/home/linuxbrew/.linuxbrew/bin/"
 
 # === Install Homebrew packages and language servers ===
-RUN brew install autojump helix yazi zellij lazygit bat \
+RUN brew install helix yazi zellij lazygit bat \
   neocmakelsp \
   bash-language-server \
   lua-language-server \
@@ -59,6 +58,9 @@ RUN brew install autojump helix yazi zellij lazygit bat \
 RUN pip3 install bitbake-language-server --break-system-packages && \
   pip3 cache purge && \
   rm -rf .cache/pip
+
+# === npm tools installed via npm ===
+RUN npm install -g @github/copilot@0.0.330
 
 # === Fetch and build Helix editor assets ===
 RUN hx -g fetch && hx -g build
