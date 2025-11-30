@@ -5,7 +5,7 @@ layout {
             plugin location="compact-bar"
         }
     }
-    tab name="main" {
+    tab name="editor" {
         pane command="hx" args="." close_on_exit=true
     }
     tab name="run" {
