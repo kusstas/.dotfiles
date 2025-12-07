@@ -12,6 +12,6 @@ layout {
         pane
     }
     tab name="git" {
-        pane command="lazygit"
+        pane command="gitui"
     }
 }

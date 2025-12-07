@@ -42,7 +42,7 @@ RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/instal
 ENV PATH="$PATH:/home/linuxbrew/.linuxbrew/bin/"
 
 # === Install Homebrew packages and language servers ===
-RUN brew install helix yazi zellij lazygit bat \
+RUN brew install helix yazi zellij gitui bat \
   neocmakelsp \
   bash-language-server \
   lua-language-server \
