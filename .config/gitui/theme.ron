@@ -1,6 +1,7 @@
 (
     cmdbar_bg: Some("Yellow"),
     selection_bg: Some("DarkGray"),
+    push_gauge_bg: Some("DarkGray"),
     command_fg: Some("Black"),
     disabled_fg: Some("DarkGray"),
 )
