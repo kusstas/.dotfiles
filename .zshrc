@@ -118,6 +118,16 @@ function ide-build() (
     docker compose -f ~/.dotfiles/docker-compose.yml build
 )
 
+function start-ssh-agent() {
+    if [[ -f "/tmp/ssh-agent-session" ]]; then
+        eval "$(cat /tmp/ssh-agent-session)" >/dev/null
+    else
+        ssh-agent -s >/tmp/ssh-agent-session
+        eval "$(cat /tmp/ssh-agent-session)" >/dev/null
+        ssh-add "$HOME/.ssh/id_ed25519"
+    fi
+}
+
 if [[ -d "$HOME/.cargo" ]]; then
     . "$HOME/.cargo/env"
 fi
@@ -151,3 +161,5 @@ fpath=($HOME/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
 # End of Docker CLI completions
+
+start-ssh-agent
