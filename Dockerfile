@@ -42,8 +42,9 @@ RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUS
 # === Install Rust toolchain and useful cargo utilities ===
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
   && .cargo/bin/rustup component add rust-analyzer \
-  && .cargo/bin/cargo install cargo-upgrades \
+  && .cargo/bin/cargo install cargo-upgrades --version "=2.2.4" --locked \
   && .cargo/bin/cargo install cargo-expand \
+  && .cargo/bin/cargo install cargo-edit \
   && .cargo/bin/cargo install cargo-cache \
   && .cargo/bin/cargo install cargo-audit \
   && .cargo/bin/cargo install cargo-sort \
@@ -72,7 +73,7 @@ RUN pip3 install bitbake-language-server --break-system-packages \
   && rm -rf .cache/pip
 
 # === npm tools installed via npm ===
-RUN npm install -g @github/copilot@0.0.330
+RUN npm install -g @github/copilot
 
 # === Fetch and build Helix editor assets ===
 RUN hx -g fetch && hx -g build
