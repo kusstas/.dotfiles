@@ -1,6 +1,6 @@
 # 🏡 .dotfiles
 
-Configurations repo for `zsh`, `tmux`, `zellij`, `helix`, `bat`, `yazi`, `lazygit` and etc.
+Configurations repo for `zsh`, `tmux`, `zellij`, `helix`, `bat`, `yazi`, `gitui` and etc.
 
 ### Requirements
 
@@ -10,23 +10,7 @@ Configurations repo for `zsh`, `tmux`, `zellij`, `helix`, `bat`, `yazi`, `lazygi
 - [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh)
 - [JetBrains fonts](https://www.jetbrains.com/lp/mono/)
 - [Nerd fonts](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/NerdFontsSymbolsOnly.zip)
-- [tmux](https://github.com/tmux/tmux/wiki)
 - [zellij](https://zellij.dev)
 - [yazi](https://yazi-rs.github.io)
 - [bat](https://github.com/sharkdp/bat)
 - [helix](https://helix-editor.com)
-- [lazygit](https://github.com/jesseduffield/lazygit)
-
-### Install
-
-```sh
-cd ~
-git clone https://github.com/kusstas/.dotfiles ~/.dotfiles
-cd .dotfiles
-stow -v .
-```
-
-### Appearance
-
-- [iterm2](./.themes/iterm2.json)
-- [iterm2-colors](./.themes/base16-defaultdark.dark.256.itermcolors)

@@ -76,7 +76,7 @@ RUN pip3 install bitbake-language-server --break-system-packages \
 RUN npm install -g @github/copilot
 
 # === Fetch and build Helix editor assets ===
-RUN hx -g fetch && hx -g build
+RUN hx -g fetch || true && hx -g build || true
 
 # === Copy dotfiles into image and apply them with GNU Stow ===
 COPY --chown=${USER_NAME}:${USER_NAME} .. .dotfiles

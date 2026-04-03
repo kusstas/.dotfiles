@@ -1,6 +1,6 @@
 # in ~/.config/helix/config.toml
 
-theme = 'better-base16'
+theme = 'catppuccin_macchiato'
 
 [editor]
 true-color = true
