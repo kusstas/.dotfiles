@@ -7,9 +7,26 @@ services:
     tty: true
     volumes:
       - ${PWD}:/home/${USER_NAME:-me}/workdir
-      - ${HOME}/.ssh:/home/${USER_NAME:-me}/.ssh
-      - ${HOME}/.gitconfig:/home/${USER_NAME:-me}/.gitconfig
-      - ${HOME}/.env:/home/${USER_NAME:-me}/.env
+      - type: bind
+        source: ${HOME}/.ssh
+        target: /home/${USER_NAME:-me}/.ssh
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${HOME}/.gitconfig
+        target: /home/${USER_NAME:-me}/.gitconfig
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${HOME}/.env
+        target: /home/${USER_NAME:-me}/.env
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${HOME}/.netrc
+        target: /home/${USER_NAME:-me}/.netrc
+        bind:
+          create_host_path: false
     build:
       context: .
       args:
