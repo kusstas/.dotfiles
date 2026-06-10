@@ -27,6 +27,16 @@ services:
         target: /home/${USER_NAME:-me}/.netrc
         bind:
           create_host_path: false
+      - type: bind
+        source: ${HOME}/.cargo/credentials.toml
+        target: /home/${USER_NAME:-me}/.cargo/credentials.toml
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${HOME}/.cursor
+        target: /home/${USER_NAME:-me}/.cursor
+        bind:
+          create_host_path: false
     build:
       context: .
       args:

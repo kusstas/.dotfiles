@@ -75,8 +75,8 @@ RUN pip3 install bitbake-language-server --break-system-packages \
   && pip3 cache purge \
   && rm -rf .cache/pip
 
-# === npm tools installed via npm ===
-RUN npm install -g @github/copilot
+# === Install Cursor ===
+RUN curl https://cursor.com/install -fsS | bash
 
 # === Fetch and build Helix editor assets ===
 RUN hx -g fetch || true && hx -g build || true
