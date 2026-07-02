@@ -47,6 +47,7 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
   && .cargo/bin/cargo install cargo-cache \
   && .cargo/bin/cargo install cargo-edit \
   && .cargo/bin/cargo install cargo-expand \
+  && .cargo/bin/cargo install cargo-machete \
   && .cargo/bin/cargo install cargo-sort \
   && .cargo/bin/cargo install cargo-upgrades --version "=2.2.4" --locked \
   && .cargo/bin/cargo install cargo-workspaces \
