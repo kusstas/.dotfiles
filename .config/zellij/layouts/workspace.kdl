@@ -14,4 +14,7 @@ layout {
     tab name="git" {
         pane command="gitui"
     }
+    tab name="agent" {
+        pane command="agent"
+    }
 }

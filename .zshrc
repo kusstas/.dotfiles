@@ -162,4 +162,6 @@ autoload -Uz compinit
 compinit
 # End of Docker CLI completions
 
+alias gitdifft='git -c diff.external=difft diff'
+
 start-ssh-agent

@@ -14,6 +14,7 @@ RUN apt-get update \
   pkg-config \
   shfmt \
   stow \
+  wget \
   zsh \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
@@ -43,14 +44,14 @@ RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUS
 # === Install Rust toolchain and useful cargo utilities ===
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
   && .cargo/bin/rustup component add rust-analyzer \
-  && .cargo/bin/cargo install cargo-audit \
-  && .cargo/bin/cargo install cargo-cache \
-  && .cargo/bin/cargo install cargo-edit \
-  && .cargo/bin/cargo install cargo-expand \
-  && .cargo/bin/cargo install cargo-machete \
-  && .cargo/bin/cargo install cargo-sort \
+  && .cargo/bin/cargo install cargo-audit --locked \
+  && .cargo/bin/cargo install cargo-cache --locked \
+  && .cargo/bin/cargo install cargo-edit --locked \
+  && .cargo/bin/cargo install cargo-expand --locked \
+  && .cargo/bin/cargo install cargo-machete --locked \
+  && .cargo/bin/cargo install cargo-sort --locked \
   && .cargo/bin/cargo install cargo-upgrades --version "=2.2.4" --locked \
-  && .cargo/bin/cargo install cargo-workspaces \
+  && .cargo/bin/cargo install cargo-workspaces --locked \
   && rm -rf .cargo/registry
 
 # === Install Homebrew (Linuxbrew) ===
@@ -58,7 +59,7 @@ RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/instal
 ENV PATH="$PATH:/home/linuxbrew/.linuxbrew/bin/"
 
 # === Install Homebrew packages and language servers ===
-RUN brew install helix yazi zellij gitui bat \
+RUN brew install helix yazi zellij gitui bat difftastic \
   bash-language-server \
   llvm \
   lua-language-server \
