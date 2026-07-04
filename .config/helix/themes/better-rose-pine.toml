@@ -1,0 +1,4 @@
+inherits = 'rose_pine'
+
+"ui.cursor.primary.insert" = { fg = "base", bg = "foam" }
+"ui.cursor.primary.select" = { fg = "base", bg = "iris" }

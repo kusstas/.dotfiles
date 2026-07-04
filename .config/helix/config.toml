@@ -1,6 +1,6 @@
 # in ~/.config/helix/config.toml
 
-theme = 'catppuccin_macchiato'
+theme = 'better-rose-pine'
 
 [editor]
 true-color = true
@@ -32,3 +32,7 @@ A-k = [
 "^" = "goto_first_nonwhitespace"
 G = "goto_file_end"
 "%" = "match_brackets"
+
+[keys.select]
+"{" = "goto_prev_paragraph"
+"}" = "goto_next_paragraph"

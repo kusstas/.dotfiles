@@ -8,5 +8,7 @@ use = "yazi-rs/plugins:git"
 rev = "d7588f6"
 hash = "63b6c222bf2103b3023389dde5e2ecfe"
 
-[flavor]
-deps = []
+[[flavor.deps]]
+use = "Mintass/rose-pine"
+rev = "d91f8f2"
+hash = "87da3630653b6d272e43658418599188"
