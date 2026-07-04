@@ -59,7 +59,8 @@ RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/instal
 ENV PATH="$PATH:/home/linuxbrew/.linuxbrew/bin/"
 
 # === Install Homebrew packages and language servers ===
-RUN brew install helix yazi zellij gitui bat difftastic \
+RUN brew install helix yazi zellij gitui bat btop difftastic \
+  docker docker-compose \
   bash-language-server \
   llvm \
   lua-language-server \
@@ -82,6 +83,7 @@ RUN curl https://cursor.com/install -fsS | bash
 
 # === Fetch and build Helix editor assets ===
 RUN hx -g fetch || true && hx -g build || true
+RUN bat cache --build
 
 # === Copy dotfiles into image and apply them with GNU Stow ===
 COPY --chown=${USER_NAME}:${USER_NAME} .. .dotfiles

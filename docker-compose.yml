@@ -18,11 +18,6 @@ services:
         bind:
           create_host_path: false
       - type: bind
-        source: ${HOME}/.env
-        target: /home/${USER_NAME:-me}/.env
-        bind:
-          create_host_path: false
-      - type: bind
         source: ${HOME}/.netrc
         target: /home/${USER_NAME:-me}/.netrc
         bind:
@@ -37,6 +32,11 @@ services:
         target: /home/${USER_NAME:-me}/.cursor
         bind:
           create_host_path: false
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+    group_add:
+      - "${DOCKER_GID:-0}"
     build:
       context: .
       args:

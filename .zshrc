@@ -105,6 +105,9 @@ function ide-env() {
     if [[ "$os" == "Linux" ]]; then
         export USER_UID=$(id -u)
         export USER_GID=$(id -g)
+        export DOCKER_GID=$(stat -c '%g' /var/run/docker.sock 2>/dev/null || getent group docker | cut -d: -f3)
+    else
+        export DOCKER_GID=$(stat -f '%g' /var/run/docker.sock 2>/dev/null)
     fi
 }
 
@@ -130,10 +133,6 @@ function start-ssh-agent() {
 
 if [[ -f "$HOME/.cargo/env" ]]; then
     . "$HOME/.cargo/env"
-fi
-
-if [[ -f "$HOME/.env" ]]; then
-    export $(grep -v ^# "$HOME/.env" | xargs)
 fi
 
 if [[ -d "/snap/bin" ]]; then
